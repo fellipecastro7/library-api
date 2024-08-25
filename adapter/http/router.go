@@ -11,6 +11,7 @@ func SetupRouter(cont *container.Container) *gin.Engine {
 
 	router.SetupUserRouters(r, cont.UserHandler)
 	router.SetupBookRouters(r, cont.BookHandler)
+	router.SetupLoanRouters(r, cont.LoanHandler)
 
 	return r
 }

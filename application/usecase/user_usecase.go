@@ -23,7 +23,7 @@ func (uc *UserUseCase) CreateUser(userRequest *domain.User) (*domain.User, error
 	if err != nil && err != gorm.ErrRecordNotFound {
 		return nil, err
 	}
-	if existingUser != nil {
+	if existingUser.Id != uuid.Nil {
 		return nil, errors.New("email já está em uso")
 	}
 
