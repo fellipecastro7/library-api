@@ -13,21 +13,30 @@ type Container struct {
 	UserRepo    repository.UserRepository
 	UserUsecase *usecase.UserUseCase
 	UserHandler *handler.UserHandler
+	BookRepo    repository.BookRepository
+	BookUseCase *usecase.BookUseCase
+	BookHandler *handler.BookHandler
 }
 
 func NewContainer() *Container {
 	db := postgres.InitDB()
 
 	userRepo := repository.NewUserRepository(db)
+	bookRepo := repository.NewBookRepository(db)
 
 	userUseCase := usecase.NewUserUseCase(userRepo)
+	bookUseCase := usecase.NewBookUseCase(bookRepo)
 
 	userHandler := handler.NewUserHandler(userUseCase)
+	bookHandler := handler.NewBookHandler(bookUseCase)
 
 	return &Container{
 		DB:          db,
 		UserRepo:    userRepo,
+		BookRepo:    bookRepo,
 		UserUsecase: userUseCase,
+		BookUseCase: bookUseCase,
 		UserHandler: userHandler,
+		BookHandler: bookHandler,
 	}
 }
