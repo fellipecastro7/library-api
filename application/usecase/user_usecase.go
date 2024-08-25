@@ -20,7 +20,6 @@ func NewUserUseCase(userrepo repository.UserRepository) *UserUseCase {
 
 func (uc *UserUseCase) CreateUser(userRequest *domain.User) (*domain.User, error) {
 	existingUser, err := uc.userrepo.GetByEmail(userRequest.Email)
-	//existingUser, err := uc.userRepo.GetByEmail(userRequest.Email)
 	if err != nil && err != gorm.ErrRecordNotFound {
 		return nil, err
 	}
@@ -95,7 +94,7 @@ func (uc *UserUseCase) UpdateUser(id string, userRequest domain.User) (*domain.U
 
 	if userRequest.Email != "" && userRequest.Email != existingUser.Email {
 		userWithSameEmail, _ := uc.userrepo.GetByEmail(userRequest.Email)
-		if userWithSameEmail != nil {
+		if userWithSameEmail.Email != "" {
 			return nil, errors.New("email já está em uso")
 		}
 		existingUser.Email = userRequest.Email
@@ -111,10 +110,6 @@ func (uc *UserUseCase) UpdateUser(id string, userRequest domain.User) (*domain.U
 			return nil, errors.New("erro ao gerar hash da senha")
 		}
 		existingUser.PasswordHash = hashedPassword
-	}
-
-	if err := existingUser.Validate(); err != nil {
-		return nil, err
 	}
 
 	updatedUser, err := uc.userrepo.UpdateUser(existingUser)
