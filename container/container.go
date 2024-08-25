@@ -16,6 +16,9 @@ type Container struct {
 	BookRepo    repository.BookRepository
 	BookUseCase *usecase.BookUseCase
 	BookHandler *handler.BookHandler
+	LoanRepo    repository.LoanRepository
+	LoanUseCase *usecase.LoanUseCase
+	LoanHandler *handler.LoanHandler
 }
 
 func NewContainer() *Container {
@@ -23,20 +26,26 @@ func NewContainer() *Container {
 
 	userRepo := repository.NewUserRepository(db)
 	bookRepo := repository.NewBookRepository(db)
+	loanRepo := repository.NewLoanRepository(db)
 
 	userUseCase := usecase.NewUserUseCase(userRepo)
 	bookUseCase := usecase.NewBookUseCase(bookRepo)
+	loanUseCase := usecase.NewLoanUseCase(loanRepo)
 
 	userHandler := handler.NewUserHandler(userUseCase)
 	bookHandler := handler.NewBookHandler(bookUseCase)
+	loanHandler := handler.NewLoanHandler(loanUseCase)
 
 	return &Container{
 		DB:          db,
 		UserRepo:    userRepo,
 		BookRepo:    bookRepo,
+		LoanRepo:    loanRepo,
 		UserUsecase: userUseCase,
 		BookUseCase: bookUseCase,
+		LoanUseCase: loanUseCase,
 		UserHandler: userHandler,
 		BookHandler: bookHandler,
+		LoanHandler: loanHandler,
 	}
 }
