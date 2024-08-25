@@ -8,7 +8,7 @@ import (
 )
 
 type Loan struct {
-	Id         uuid.UUID      `json:"id" gorm:"type:uuid;primaryKey;default:uuid_generate_v4()"`
+	Id         uuid.UUID      `json:"id" gorm:"type:uuid;primaryKey"`
 	UserId     uuid.UUID      `json:"userId" gorm:"type:uuid;not null"`
 	BookId     uuid.UUID      `json:"bookId" gorm:"type:uuid;not null"`
 	LoanDate   time.Time      `json:"loanDate" gorm:"default:current_timestamp"`

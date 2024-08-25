@@ -8,10 +8,10 @@ import (
 )
 
 type Book struct {
-	Id              uuid.UUID      `json:"id" gorm:"type:uuid;primaryKey;default:uuid_generate_v4()"`
+	Id              uuid.UUID      `json:"id" gorm:"type:uuid;primaryKey"`
 	Title           string         `json:"title" validate:"required,min=1,max=255"`
 	Author          string         `json:"author" validate:"required,min=1,max=255"`
-	PublicationYear int            `json:"publicationYear" validate:"gte=0"`
+	PublicationYear *int           `json:"publicationYear" validate:"gte=0"`
 	CreatedAt       time.Time      `json:"-"`
 	UpdatedAt       time.Time      `json:"-"`
 	DeletedAt       gorm.DeletedAt `json:"-" gorm:"index"`
