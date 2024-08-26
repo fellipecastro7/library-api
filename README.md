@@ -1,4 +1,4 @@
-# API de Biblioteca
+# Library API
 
 Uma API RESTful simples para gerenciar livros, empréstimos e usuários em um sistema de biblioteca. Este projeto é desenvolvido em Go com o framework Gin, GORM para ORM e PostgreSQL como banco de dados.
 
